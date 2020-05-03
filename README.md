@@ -66,3 +66,11 @@ Mac OS 7.6          | Works with gtbl hacks                  | Works
 Mac OS 7.6.1        | Works with gtbl hacks                  | Works
 Mac OS 8.0          | Works with gtbl hacks                  | Works
 Mac OS 8.1          | Always worked                          | Always worked
+
+
+Contributing
+------------
+
+This is a work in progress. Emails, forum posts, patches and pull requests welcome! I have started a discussion on the 68kMLA forum:
+
+https://68kmla.org/forums/index.php?/topic/59570-backporting-hfs-to-mac-os-80-and-earlier/
