@@ -21,6 +21,20 @@ Lacking the Appearace Manager and Finder 8, it looks and feels more like System 
 "Disk Tools 1" and "Disk Tools PPC" are versioned "8.0DT" and "8.1DT" respectively, as if to avoid confusion about which System version will read HFS+ volumes. 
 
 
+How HFS+ is implemented on Mac OS
+---------------------------------
+
+Essentially, HFS+ support is provided by 68k code in the 'ptch' -20217 resource. This patch uses the "File System Manager" hooks provided by the Mac Plus and later ROMs. Mac OS 8.1 executes the patch fairly early in the boot process from the 'boot' 3 resource. (At some point before Mac OS 9.2.2, this was moved even earlier into the 'boot' 2 resource.) Additional support comes from:
+
+- 'ptch' 41, the Disk Cache
+- 'boot' 22460
+- 'PACK' 2, the Disk Initialization code, and related resources
+
+The 'ptch' -20217 resource was actually used for "MountCheck" in System 7.6.x. Repurposing it for HFS+ might have been a diplomatic way to avoid requiring System Enablers ("Gibblies") to know about HFS in their own custom 'boot' 3 resources. Instead, they would "accidentally" load it while expecting to fsck the boot disk. Happily enough, this means that we do not need to patch any 'boot' resources in System 7.6.x.
+
+The Text Encoding Converter extension is required on at least some systems, I suppose because HFS+ does encode Unicode filenames with UTF-16.
+
+
 Tooling
 -------
 These the prerequisites to work on this project:
@@ -41,13 +55,14 @@ Binary-level comparisions between resources are possible by combining `rfx` (ins
 This project has, so far, not required any deep exploration of the HFS or HFS+ on-disk formats.
 
 
-How HFS+ is implemented on Mac OS
----------------------------------
+Status of HFS+ backporting
+--------------------------
 
-Essentially, HFS+ support is provided by the 68k 'ptch' -20217 resource. This patch uses the "File System Manager" hooks provided by the Mac Plus and later ROMs. Mac OS 8.1 executes the patch fairly early in the boot process from the 'boot' 3 resource. (At some point before Mac OS 9.2.2, this was moved even earlier into the 'boot' 2 resource.) Additional support comes from:
-
-- 'ptch' 41, the Disk Cache
-- 'boot' 22460
-- 'PACK' 2, the Disk Initialization code, and related resources
-
-The Text Encoding Converter extension is required on at least some systems, I suppose because HFS+ does encode Unicode filenames with UTF-16.
+Mac OS Version      | 68k Status                             | PowerPC Status
+--------------------|----------------------------------------|----------------------------------------
+System 7.5.3        | Does not work (Basilisk II)            | Not tested in SheepShaver (bad System file?)
+System 7.5.5        | Works with gtbl hacks and DT boot 3    | Works
+Mac OS 7.6          | Works with gtbl hacks                  | Works
+Mac OS 7.6.1        | Works with gtbl hacks                  | Works
+Mac OS 8.0          | Works with gtbl hacks                  | Works
+Mac OS 8.1          | Always worked                          | Always worked

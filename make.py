@@ -133,6 +133,8 @@ for base_version in base_versions:
         # Mac OS 9 actually loads ptch -20217 in boot 2, which is more elegant, because unlike boot 3,
         # boot 2 is guaranteed not to be run from a separate gibbly
 
+        # System 7.5.5 needs boot 3 instead, not sure why...
+
         print('Pre-7.6 needs some help to load ptch -20217:')
         copy_resource_and_subresources('9.2.2', 'boot', 2)
         # copy_resource_and_subresources('8.1.0', 'boot', 3)
