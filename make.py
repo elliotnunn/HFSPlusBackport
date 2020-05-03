@@ -171,7 +171,7 @@ for base_version in base_versions:
 
     vol = machfs.Volume()
     vol.name = 'Test-' + base_version
-    vol.read_folder(TestBed, date=0xC0000000)
+    vol.read_folder(dest_dir, date=0xC0000000)
     vol = vol.write(10 * 1024 * 1024)
 
 
